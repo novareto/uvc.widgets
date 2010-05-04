@@ -58,7 +58,6 @@ class NonExclusiveSelect(select.SelectWidget):
     def update(self):
         """See z3c.form.interfaces.IWidget."""
         optchoice.need()
-        print "UPDATE"
         super(select.SelectWidget, self).update()
         anothervalue = True
         
@@ -110,7 +109,6 @@ class AltChoiceWidgetInput(z3cform.WidgetTemplate):
 @grok.implementer(z3cform.IFieldWidget)
 def FileFieldWidget(field, request):
     """IFieldWidget factory for FileWidget."""
-    print "IMPLEMENTER"
     return z3cform.FieldWidget(field, NonExclusiveSelect(request))
 
 

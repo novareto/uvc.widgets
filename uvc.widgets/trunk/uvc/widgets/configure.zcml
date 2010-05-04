@@ -10,6 +10,4 @@
   <include package="megrok.z3cform.base"/>
   <grok:grok package="."/>
 
-
-
 </configure>
