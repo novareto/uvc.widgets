@@ -7,6 +7,7 @@
   <include package="hurry.jquery"/>
   <include package="hurry.jqueryui"/>
   <include package="hurry.zopetinymce"/>
+  <include package="megrok.z3cform.base"/>
   <grok:grok package="."/>
 
 

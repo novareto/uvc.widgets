@@ -1,12 +1,23 @@
 from megrok.resource import ResourceInclusion, Library, path, name
 from hurry.jqueryui import jqueryui
 from hurry.tinymce import tinymce
+from hurry.jquery import jquery
 
-class FancyWidgetsLibrary(Library):
+class WidgetsLibrary(Library):
     path('jslibrary')
     name('fancywidgets')
 
 
-DatePicker = ResourceInclusion(FancyWidgetsLibrary, 'datepicker.js', depends=[jqueryui])
 
-TinyMCE = ResourceInclusion(FancyWidgetsLibrary, 'tinymce.js', depends=[tinymce])
+DatePickerCSS = ResourceInclusion(
+    WidgetsLibrary, 'datepicker.css', depends=[jqueryui])
+
+DatePicker = ResourceInclusion(
+    WidgetsLibrary, 'datepicker.js', depends=[jqueryui])
+
+TinyMCE = ResourceInclusion(
+    WidgetsLibrary, 'tinymce.js', depends=[tinymce])
+
+optchoice = ResourceInclusion(
+    WidgetsLibrary, 'choice.js', depends=[jquery])
+
