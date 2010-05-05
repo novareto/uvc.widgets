@@ -21,3 +21,5 @@ TinyMCE = ResourceInclusion(
 optchoice = ResourceInclusion(
     WidgetsLibrary, 'choice.js', depends=[jquery])
 
+double = ResourceInclusion(
+    WidgetsLibrary, 'double.js', depends=[jquery])

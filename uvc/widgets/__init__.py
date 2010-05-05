@@ -1,2 +1,2 @@
-from resources import DatePickerCSS, DatePicker, TinyMCE
+from resources import double, DatePickerCSS, DatePicker, TinyMCE
 
