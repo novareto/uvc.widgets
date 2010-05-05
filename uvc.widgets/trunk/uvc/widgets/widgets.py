@@ -122,6 +122,7 @@ class SequenceDataConverter(grok.MultiAdapter, SequenceDataConverter):
         # if the value is the missing value, then an empty list is produced.
         if value is self.field.missing_value:
             return []
+        print "toWidget", value    
         return value
 
     def toFieldValue(self, value):
@@ -129,4 +130,5 @@ class SequenceDataConverter(grok.MultiAdapter, SequenceDataConverter):
         widget = self.widget
         if not len(value) or value[0] == widget.noValueToken:
             return self.field.missing_value
+        print "toField", value[0] 
         return value[0]
