@@ -1,21 +1,12 @@
 $(document).ready(function() {
     $.fn.extend({
-  appendFieldTo: function(id) {  
-          input = $(this).find('div.widget input');
-          label = $(this).find('label span.label');
-          description = $(this).find('label span.small');
-          error = $(this).find('div.error div');
-          console.log(description);
-          console.log($(id + ' label'));
-          input.appendTo(id + ' div.widget');
-          label.appendTo(id + ' label span.label');
-          description.appendTo(id + 'label span');
-          /* error.append(id + ' div.error div'); */
-        }
-     })
+  appendField: function(id) {
 
+      $(this).wrap('<table class="field-liner"><tr><td class="lined-field"></td></tr></table>');
 
-   $('#form-widgets-vorname-row').appendFieldTo('#form-widgets-name-row');
-
+      $(this).closest('.lined-field').after($(id));
+      $(id).wrap('<td></d>');
+      }
+   });
+   $('#form-widgets-name-row').appendField('#form-widgets-vorname-row');
 });
-
