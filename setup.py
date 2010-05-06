@@ -1,7 +1,7 @@
 from setuptools import setup, find_packages
 import os
 
-version = '0.2dev'
+version = '0.2'
 
 setup(name='uvc.widgets',
       version=version,
@@ -13,8 +13,8 @@ setup(name='uvc.widgets',
         "Programming Language :: Python",
         ],
       keywords='',
-      author='',
-      author_email='',
+      author='Christian Klinger',
+      author_email='cklinger@novareto.de',
       url='http://svn.plone.org/svn/collective/',
       license='GPL',
       packages=find_packages(exclude=['ez_setup']),
