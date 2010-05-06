@@ -6,8 +6,7 @@ version = '0.3dev'
 setup(name='uvc.widgets',
       version=version,
       description="A collection of widgets for formlib / z3cformm based on jquery",
-      long_description=open("README.txt").read() + "\n" +
-                       open("HISTORY.txt").read(),
+      long_description=open("README.txt").read(), 
       # Get more strings from http://pypi.python.org/pypi?%3Aaction=list_classifiers
       classifiers=[
         "Programming Language :: Python",
