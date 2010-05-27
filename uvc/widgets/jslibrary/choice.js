@@ -2,7 +2,7 @@
 
     $('input.alternative-input').hide();
     $('select.alternative-choice').append(
-        '<option class="alt-opt" id="alternative-choice-opt" value="">My value</option>'
+        '<option class="alt-opt" id="alternative-choice-opt" value=""> Sonstiges </option>'
     )
 
     $('select.alternative-choice').change(function(e) {
