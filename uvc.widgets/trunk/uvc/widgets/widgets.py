@@ -53,21 +53,27 @@ class NonExclusiveSelect(select.SelectWidget):
                     self.terms.getTermByToken(token)
                 except LookupError:
                     return value
-        return value
+        if not isinstance(value, (tuple, list)):
+            return value
+        return value[0]
 
     def update(self):
         """See z3c.form.interfaces.IWidget."""
-        optchoice.need()
         super(select.SelectWidget, self).update()
-        anothervalue = True
-        
         widget.addFieldClass(self)
-        self.items = []
+        optchoice.need()
+ 
+    @property
+    def items(self):
+        if self.terms is None:
+            return ()
+        items = []    
+        anothervalue = True
         if (not self.required or self.prompt) and self.multiple is None:
             message = self.noValueMessage
             if self.prompt:
                 message = self.promptMessage
-            self.items.append({
+            items.append({
                 'id': self.id + '-novalue',
                 'value': self.noValueToken,
                 'content': message,
@@ -83,17 +89,18 @@ class NonExclusiveSelect(select.SelectWidget):
             if zope.schema.interfaces.ITitledTokenizedTerm.providedBy(term):
                 content = translate(
                     term.title, context=self.request, default=term.title)
-            self.items.append(
+            items.append(
                 {'id':id, 'value':term.token, 'content':content,
                  'selected':selected})
 
         if self.value and anothervalue is True:
             count += 1
-            self.items.append(
+            items.append(
                 {'id': '%s-%i' % (self.id, count),
-                 'value':self.value,
-                 'content':self.value,
+                 'value': self.value[0],
+                 'content': self.value[0],
                  'selected': True})
+        return items
 
 
 class AltChoiceWidgetInput(z3cform.WidgetTemplate):
@@ -122,7 +129,6 @@ class SequenceDataConverter(grok.MultiAdapter, SequenceDataConverter):
         # if the value is the missing value, then an empty list is produced.
         if value is self.field.missing_value:
             return []
-        print "toWidget", value    
         return value
 
     def toFieldValue(self, value):
@@ -130,5 +136,4 @@ class SequenceDataConverter(grok.MultiAdapter, SequenceDataConverter):
         widget = self.widget
         if not len(value) or value[0] == widget.noValueToken:
             return self.field.missing_value
-        print "toField", value[0] 
-        return value[0]
+        return value
