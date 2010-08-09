@@ -1,27 +1,28 @@
 # -*- coding: utf-8 -*-
 
 from zope.schema import Choice
-from zope.interface import Interface, directlyProvides
+from zope.interface import Interface, implements 
 
 
-class IAlternativeChoice(Interface):
+class IOptionalChoice(Interface):
     pass
 
 
 class OptionalChoice(Choice):
     """A choice field with the option to add an alternative value
     """
+    implements(IOptionalChoice)
+
     def __init__(self, values=None, vocabulary=None,
-                 source=None, alternative=False, **kw):
+                 source=None, **kw):
         Choice.__init__(self, values, vocabulary, source, **kw)
-        self.alternative = alternative
-        if alternative is True:
-            directlyProvides(self, IAlternativeChoice)
 
     def _validate(self, value):
         if self._init_field:
             return
-        
+        return
+
+        import pdb; pdb.set_trace()  
         if not self.alternative:
             vocabulary = self.vocabulary
             if vocabulary is None:

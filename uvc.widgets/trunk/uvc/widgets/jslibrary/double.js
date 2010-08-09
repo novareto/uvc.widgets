@@ -33,7 +33,7 @@ $(document).ready(function() {
           $(this).hide();
         }
      })
-   $('#form-widgets-vorname-row').appendFieldTo('#form-widgets-name-row');
+   $('#field-form-field-vorname').appendFieldTo('#field-form-field-name');
 
 
 });

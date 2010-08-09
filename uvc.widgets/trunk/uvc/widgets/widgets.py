@@ -1,139 +1,70 @@
 # -*- coding: utf-8 -*-
+# Copyright (c) 2007-2010 NovaReto GmbH
+# cklinger@novareto.de 
 
 import grok
-import megrok.z3cform.base as z3cform
-import zope.schema
-import zope.component
 
-from zope.interface import Interface, implements
-from zope.component import getMultiAdapter
-from zope.traversing.browser.absoluteurl import absoluteURL
-import zope.component
-import zope.interface
-import zope.schema
-import zope.schema.interfaces
-from zope.i18n import translate
+from zope.interface import Interface
+from zeam.form.ztk.widgets import choice 
+from uvc.widgets.fields import IOptionalChoice
 from uvc.widgets.resources import optchoice
-
-from z3c.form import interfaces
-from z3c.form.converter import SequenceDataConverter
-from z3c.form.i18n import MessageFactory as _
-from z3c.form.browser import widget
-from z3c.form.browser import select
-from z3c.form.interfaces import ISelectWidget
-from fields import IAlternativeChoice
+from zeam.form.ztk.fields import registerSchemaField
+from zope.schema.vocabulary import SimpleTerm
+import zope.schema.interfaces as schema_interfaces
 
 
-class INonExclusiveSelect(ISelectWidget):
-    """A widget that renders a choice as a select box with
-    the possibility to input something else.
-    """
+def register():
+    registerSchemaField(OptionalChoiceSchemaField, IOptionalChoice)
 
 
-class NonExclusiveSelect(select.SelectWidget):
-    """A widget for a named file object
-    """
-    klass = u'alternative-choice-widget'
-    implements(INonExclusiveSelect)
+class OptionalChoiceSchemaField(choice.ChoiceSchemaField):
 
-    def extract(self, default=interfaces.NO_VALUE):
-        """See z3c.form.interfaces.IWidget."""
-        if (self.name not in self.request and
-            self.name+'-empty-marker' in self.request):
-            return []
-        value = self.request.get(self.name, default)
-        if value != default:
-            if not isinstance(value, (tuple, list)):
-                value = (value,)
-            # do some kind of validation, at least only use existing values
-            for token in value:
-                if token == self.noValueToken:
-                    continue
-                try:
-                    self.terms.getTermByToken(token)
-                except LookupError:
-                    return value
-        if not isinstance(value, (tuple, list)):
-            return value
-        return value[0]
+    def getChoices(self, context):
+        source = self.source
+        if (schema_interfaces.IContextSourceBinder.providedBy(source) or
+            schema_interfaces.IVocabularyFactory.providedBy(source)):
+            source = source(context)
+        assert schema_interfaces.IVocabularyTokenized.providedBy(source)
+        return source
+
+class OptionalChoiceFieldWidget(choice.ChoiceFieldWidget):
+    grok.adapts(OptionalChoiceSchemaField, Interface, Interface)
 
     def update(self):
-        """See z3c.form.interfaces.IWidget."""
-        super(select.SelectWidget, self).update()
-        widget.addFieldClass(self)
+        super(OptionalChoiceFieldWidget, self).update()
         optchoice.need()
- 
+
     @property
-    def items(self):
-        if self.terms is None:
-            return ()
-        items = []    
-        anothervalue = True
-        if (not self.required or self.prompt) and self.multiple is None:
-            message = self.noValueMessage
-            if self.prompt:
-                message = self.promptMessage
-            items.append({
-                'id': self.id + '-novalue',
-                'value': self.noValueToken,
-                'content': message,
-                'selected': self.value == []
-                })
-
-        for count, term in enumerate(self.terms):
-            selected = self.isSelected(term)
-            id = '%s-%i' % (self.id, count)
-            content = term.token
-            if self.value and content == self.value:
-                anothervalue = False
-            if zope.schema.interfaces.ITitledTokenizedTerm.providedBy(term):
-                content = translate(
-                    term.title, context=self.request, default=term.title)
-            items.append(
-                {'id':id, 'value':term.token, 'content':content,
-                 'selected':selected})
-
-        if self.value and anothervalue is True:
-            count += 1
-            items.append(
-                {'id': '%s-%i' % (self.id, count),
-                 'value': self.value[0],
-                 'content': self.value[0],
-                 'selected': True})
-        return items
-
-
-class AltChoiceWidgetInput(z3cform.WidgetTemplate):
-    grok.context(Interface)
-    grok.layer(z3cform.IFormLayer)
-    grok.template('templates/input.pt')
-    z3cform.directives.field(IAlternativeChoice)
-    z3cform.directives.widget(INonExclusiveSelect)
-    z3cform.directives.mode(z3cform.INPUT_MODE)
-
-
-@grok.adapter(IAlternativeChoice, z3cform.IFormLayer)
-@grok.implementer(z3cform.IFieldWidget)
-def FileFieldWidget(field, request):
-    """IFieldWidget factory for FileWidget."""
-    return z3cform.FieldWidget(field, NonExclusiveSelect(request))
-
-
-class SequenceDataConverter(grok.MultiAdapter, SequenceDataConverter):
-    """Basic data converter for ISequenceWidget."""
-    grok.adapts(IAlternativeChoice, INonExclusiveSelect)
-
-    def toWidgetValue(self, value):
-        """Convert from Python bool to HTML representation."""
-        widget = self.widget
-        # if the value is the missing value, then an empty list is produced.
-        if value is self.field.missing_value:
-            return []
+    def selectValue(self):
+        value = self.inputValue()
+        if isinstance(value, list):
+            return value[0]
         return value
 
-    def toFieldValue(self, value):
-        """See interfaces.IDataConverter"""
-        widget = self.widget
-        if not len(value) or value[0] == widget.noValueToken:
-            return self.field.missing_value
+    @property
+    def textValue(self):
+        value = self.inputValue()
+        if isinstance(value, list):
+            return value[1]
         return value
+
+
+from zeam.form.base.markers import NO_VALUE
+from zeam.form.base.widgets import WidgetExtractor
+
+class OptionalChoiceWidgetExtractor(WidgetExtractor):
+    grok.adapts(OptionalChoiceSchemaField, Interface, Interface)
+
+    def extract(self):
+        value, error = super(OptionalChoiceWidgetExtractor, self).extract()
+        value, input = value
+        if input:
+            return (input, error)
+        if value is not NO_VALUE:
+            choices = self.component.getChoices(self.form.context)
+            try:
+                value = choices.getTermByToken(value).value
+            except LookupError:
+                return (None, u'Invalid value')
+        return (value, error)
+

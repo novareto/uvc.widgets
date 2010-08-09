@@ -31,5 +31,7 @@ setup(name='uvc.widgets',
       ],
       entry_points="""
       # -*- Entry points: -*-
+      [zeam.form.components]
+      optionalchoice = uvc.widgets.widgets:register
       """,
       )
