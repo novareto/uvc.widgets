@@ -26,7 +26,6 @@ setup(name='uvc.widgets',
           'megrok.resource',
           'hurry.jquery',
           'hurry.zopetinymce',
-          'megrok.z3cform.base',
           # -*- Extra requirements: -*-
       ],
       entry_points="""
