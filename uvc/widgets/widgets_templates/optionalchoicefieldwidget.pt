@@ -10,9 +10,11 @@
           tal:content="python: choice.title or choice.value">
     Option
   </option>
+</select>
+<span>
+  Sonstiges: 
   <input type="text" id="#" name="#" class="alternative-input"
          tal:attributes="name widget/identifier;
                          id widget/htmlId;
                          value widget/textValue">
-  
-</select>
+</span>                                                    
