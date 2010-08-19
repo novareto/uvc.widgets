@@ -11,6 +11,8 @@ from uvc.widgets.resources import optchoice
 from zeam.form.ztk.fields import registerSchemaField
 from zope.schema.vocabulary import SimpleTerm
 import zope.schema.interfaces as schema_interfaces
+from zeam.form.base.markers import NO_VALUE
+from zeam.form.base.widgets import WidgetExtractor
 
 
 def register():
@@ -26,6 +28,7 @@ class OptionalChoiceSchemaField(choice.ChoiceSchemaField):
             source = source(context)
         assert schema_interfaces.IVocabularyTokenized.providedBy(source)
         return source
+
 
 class OptionalChoiceFieldWidget(choice.ChoiceFieldWidget):
     grok.adapts(OptionalChoiceSchemaField, Interface, Interface)
@@ -45,12 +48,20 @@ class OptionalChoiceFieldWidget(choice.ChoiceFieldWidget):
     def textValue(self):
         value = self.inputValue()
         if isinstance(value, list):
-            return value[1]
-        return value
+            value = value[1]
+        try:
+            term = self.choices().getTerm(value)
+            return '' 
+        except:
+            return value
 
+    def valueToUnicode(self, value):
+        try:
+            term = self.choices().getTerm(value)
+            return term.token
+        except LookupError:
+            return value
 
-from zeam.form.base.markers import NO_VALUE
-from zeam.form.base.widgets import WidgetExtractor
 
 class OptionalChoiceWidgetExtractor(WidgetExtractor):
     grok.adapts(OptionalChoiceSchemaField, Interface, Interface)
