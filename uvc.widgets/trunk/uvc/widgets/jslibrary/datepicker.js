@@ -1,6 +1,6 @@
 $(function() {
   $.each($('input.field-date'), function() {  
-     $(this).datepicker({ dateFormat: 'dd.mm.yy' });
+     $(this).dateinput({ format: 'dd.mm.yyyy', firstDay: 1  });
   })
 });
 

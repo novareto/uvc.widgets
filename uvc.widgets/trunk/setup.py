@@ -22,7 +22,7 @@ setup(name='uvc.widgets',
       zip_safe=False,
       install_requires=[
           'setuptools',
-          'hurry.jqueryui',
+          'hurry.jquerytools',
           'megrok.resource',
           'hurry.jquery',
           'hurry.zopetinymce',
