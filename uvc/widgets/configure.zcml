@@ -5,7 +5,7 @@
   <include package="hurry.zoperesource"/>
   <include package="megrok.resource"/>
   <include package="hurry.jquery"/>
-  <include package="hurry.jqueryui"/>
+  <include package="hurry.jquerytools"/>
   <include package="hurry.zopetinymce"/>
   <grok:grok package="."/>
 
