@@ -3,7 +3,7 @@
 /* calendar root element */
 #calroot {
     /* place on top of other elements. set a higher value if nessessary */
-    z-index:1;
+    z-index:10000;
     
     margin-top:-1px;
     width:198px;
