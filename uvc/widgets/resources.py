@@ -23,3 +23,6 @@ optchoice = ResourceInclusion(
 
 double = ResourceInclusion(
     WidgetsLibrary, 'double.js', depends=[jquery])
+
+validation = ResourceInclusion(
+    WidgetsLibrary, 'validation.js', depends=[jquery])
