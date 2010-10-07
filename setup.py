@@ -25,7 +25,6 @@ setup(name='uvc.widgets',
           'hurry.jquerytools',
           'megrok.resource',
           'hurry.jquery',
-          'hurry.zopetinymce',
           # -*- Extra requirements: -*-
       ],
       entry_points="""

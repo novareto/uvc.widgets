@@ -1,3 +1,3 @@
-from resources import double, DatePickerCSS, DatePicker, TinyMCE
+from resources import double, DatePickerCSS, DatePicker 
 from uvc.widgets.fields import OptionalChoice 
 
