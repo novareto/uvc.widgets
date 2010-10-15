@@ -1,6 +1,12 @@
-from megrok.resource import ResourceInclusion, Library, path, name
-from hurry.jquerytools import jquerytools
+# -*- coding: utf-8 -*-
+# Copyright (c) 2007-2010 NovaReto GmbH
+# cklinger@novareto.de 
+
+
 from hurry.jquery import jquery
+from hurry.jqueryform import jqueryform
+from hurry.jquerytools import jquerytools
+from megrok.resource import ResourceInclusion, Library, path, name
 
 class WidgetsLibrary(Library):
     path('jslibrary')
@@ -22,3 +28,6 @@ double = ResourceInclusion(
 
 validation = ResourceInclusion(
     WidgetsLibrary, 'validation.js', depends=[jquery])
+
+jqt_helper = ResourceInclusion(
+    WidgetsLibrary, 'jqt_helper.js', depends=[jquerytools, jqueryform])

@@ -25,6 +25,7 @@ setup(name='uvc.widgets',
           'hurry.jquerytools',
           'megrok.resource',
           'hurry.jquery',
+          'hurry.jqueryform',
           # -*- Extra requirements: -*-
       ],
       entry_points="""
