@@ -2,7 +2,7 @@ $.tools.dateinput.localize("de", {
    months: 'Januar,Februar,März,April,Mai,Juni,Juli,August,September,Oktober,November,Dezember',
    shortMonths:  'Jan,Feb,Mar,Apr,May,Jun,Jul,Aug,Sep,Okt,Nov,Dez',
    days:         'Sonntag,Montag,Dienstag,Mittwoch,Donnerstag,Freitag,Samstag',
-   shortDays:    'Son,Mon,Die,Mit,Do,Fri,Sam'
+   shortDays:    'So,Mo,Di,Mi,Do,Fr,Sa'
 });
 
 $.tools.dateinput.conf.lang = 'de';
