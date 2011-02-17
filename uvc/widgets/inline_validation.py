@@ -3,7 +3,6 @@
 # cklinger@novareto.de 
 
 import grok
-import uvcsite
 import simplejson
 
 from zeam.form import base
