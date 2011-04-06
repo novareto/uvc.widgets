@@ -136,3 +136,11 @@ a.caldisabled {
     color:#fff;
 }
 
+.caltrigger {
+ background:url("popup_calendar.gif") no-repeat scroll 0 0 transparent;
+ display:block;
+ float:right;
+ height:20px;
+ margin-top:-1px;
+ width:30px;
+}
