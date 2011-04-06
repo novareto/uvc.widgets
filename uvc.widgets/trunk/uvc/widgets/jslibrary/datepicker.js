@@ -9,7 +9,13 @@ $.tools.dateinput.conf.lang = 'de';
 
 $(function() {
   $.each($('input.field-date'), function() {  
-     $(this).dateinput({ format: 'dd.mm.yyyy', 'firstDay': 1 });
+     $(this).dateinput({ 
+         format: 'dd.mm.yyyy', 
+         'firstDay': 1, 
+         trigger: true, 
+         selectors: true,
+         yearRange: [-95, 5] });
+     $(this).unbind('keydown');
   })
 });
 
