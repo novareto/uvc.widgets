@@ -79,3 +79,8 @@ class OptionalChoiceWidgetExtractor(WidgetExtractor):
                 return (None, u'Invalid value')
         return (value, error)
 
+
+from zeam.form.ztk.widgets.textline import TextLineWidget
+
+class HiddenDisplayWidget(TextLineWidget):
+    grok.name('hiddendisplay')
