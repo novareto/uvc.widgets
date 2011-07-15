@@ -81,6 +81,20 @@ class OptionalChoiceWidgetExtractor(WidgetExtractor):
 
 
 from zeam.form.ztk.widgets.textline import TextLineWidget
+from zeam.form.ztk.widgets.choice import ChoiceFieldWidget
 
 class HiddenDisplayWidget(TextLineWidget):
     grok.name('hiddendisplay')
+
+
+class ChoiceHiddenDisplayWidget(ChoiceFieldWidget):
+    grok.name('hiddendisplay')
+
+    def getTermValue(self, value):
+        return getattr(self.form.context, self.component._field.getName())
+
+    def valueToUnicode(self, value):
+        term = self.lookupTerm(value)
+        if term is not None:
+            return term.title
+        return u''
