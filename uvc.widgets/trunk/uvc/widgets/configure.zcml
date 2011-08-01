@@ -2,13 +2,6 @@
            xmlns:grok="http://namespaces.zope.org/grok">
   
   <include package="grok" />
-  <include package="hurry.zoperesource"/>
-  <include package="megrok.resource"/>
-  <!--
-  <include package="hurry.jquery"/>
-  <include package="hurry.jquerytools"/>
-  <include package="hurry.zopetinymce"/>
-  -->
   <grok:grok package="."/>
 
 </configure>
