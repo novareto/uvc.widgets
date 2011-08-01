@@ -1,3 +1,3 @@
-from resources import double, DatePickerCSS, DatePicker, jqt_helper 
+from resources import double, DatePickerCSS, DatePicker
 from uvc.widgets.fields import OptionalChoice 
 
