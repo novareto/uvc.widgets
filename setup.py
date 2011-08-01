@@ -22,15 +22,11 @@ setup(name='uvc.widgets',
       zip_safe=False,
       install_requires=[
           'setuptools',
-          'hurry.jquerytools',
-          'megrok.resource',
-          'hurry.jquery',
-          'hurry.jqueryform',
+          'js.jquery_tools',
+          'js.jquery',
           # -*- Extra requirements: -*-
       ],
-      entry_points="""
-      # -*- Entry points: -*-
-      [zeam.form.components]
-      optionalchoice = uvc.widgets.widgets:register
-      """,
+      entry_points={
+      'zeam.form.components': ['optionalchoice = uvc.widgets.widgets:register'],
+      'fanstatic.libraries': ['uvcwidgets = uvc.widgets.resources:widget_library']}
       )

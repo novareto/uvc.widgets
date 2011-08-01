@@ -3,31 +3,20 @@
 # cklinger@novareto.de 
 
 
-from hurry.jquery import jquery
-from hurry.jqueryform import jqueryform
-from hurry.jquerytools import jquerytools
-from megrok.resource import ResourceInclusion, Library, path, name
-
-class WidgetsLibrary(Library):
-    path('jslibrary')
-    name('fancywidgets')
+from js.jquery import jquery
+from js.jquery_tools import jquery_tools
+from fanstatic import Resource, Library
 
 
+widget_library = Library('uvc.widgets', 'jslibrary')
 
-DatePickerCSS = ResourceInclusion(
-    WidgetsLibrary, 'datepicker.css')
 
-DatePicker = ResourceInclusion(
-    WidgetsLibrary, 'datepicker.js', depends=[jquerytools])
+DatePickerCSS = Resource(widget_library, 'datepicker.css')
 
-optchoice = ResourceInclusion(
-    WidgetsLibrary, 'choice.js', depends=[jquery])
+DatePicker = Resource(widget_library, 'datepicker.js', depends=[jquery_tools])
 
-double = ResourceInclusion(
-    WidgetsLibrary, 'double.js', depends=[jquery])
+optchoice = Resource(widget_library, 'choice.js', depends=[jquery])
 
-validation = ResourceInclusion(
-    WidgetsLibrary, 'validation.js', depends=[jquery])
+double = Resource(widget_library, 'double.js', depends=[jquery])
 
-jqt_helper = ResourceInclusion(
-    WidgetsLibrary, 'jqt_helper.js', depends=[jquerytools, jqueryform])
+validation = Resource(widget_library, 'validation.js', depends=[jquery])
