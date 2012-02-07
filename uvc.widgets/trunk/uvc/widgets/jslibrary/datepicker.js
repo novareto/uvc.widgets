@@ -13,6 +13,7 @@ $(function() {
          format: 'dd.mm.yyyy', 
          'firstDay': 1, 
          trigger: true, 
+         offset: [0, 200],
          selectors: true,
          yearRange: [-95, 5] });
      $(this).unbind('keydown');
