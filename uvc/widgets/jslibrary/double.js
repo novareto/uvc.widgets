@@ -14,13 +14,14 @@ $(document).ready(function() {
 
     $.fn.extend({
   appendFieldTo: function(id) {
-          input = $(this).find('div.widget input');
-          label = $(this).find('label span.label').html();
-          description = $(this).find('label span.small').html();
+          input = $(this).find('input');
+          label = $(this).find('label.control-label').html();
+          description = $(this).find('p.help-block').html();
           error = $(this).find('div.error').html();
-          input.appendTo(id + ' div.widget');
-          $(id + ' label span.label').append(', ' + label);
-          $(id + ' label span.small').append(', ' + description);
+          console.log(id);
+          input.insertAfter(id + ' input');
+          $(id + ' label.control-label').append(', ' + label);
+          $(id + ' p.help-block').append(', ' + description);
           if ($(this).attr('class') == 'row row_error'){
              $(id).addClass('row_error');
              if ($(id).is('.error')) {
