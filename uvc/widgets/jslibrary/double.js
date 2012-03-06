@@ -1,21 +1,8 @@
 $(document).ready(function() {
-/*
- $.fn.extend({
-  appendField: function(id) {
-
-      $(this).wrap('<table class="field-liner"><tr><td class="lined-field"></td></tr></table>');
-
-      $(this).closest('.lined-field').after($(id));
-      $(id).wrap('<td class="lined-field"></d>');
-      }
-   });
-   $('#form-widgets-name-row').appendField('#form-widgets-vorname-row');
-*/
-
     $.fn.extend({
   appendFieldTo: function(id) {
           input = $(this).find('input');
-          label = $(this).find('label.control-label').html();
+          label = $(this).find('label control-label').html();
           description = $(this).find('p.help-block').html();
           error = $(this).find('div.error').html();
           console.log(id);
@@ -34,7 +21,4 @@ $(document).ready(function() {
           $(this).hide();
         }
      })
-   $('#field-form-field-vorname').appendFieldTo('#field-form-field-name');
-
-
 });
