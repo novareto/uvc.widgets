@@ -5,7 +5,6 @@ $(document).ready(function() {
           label = $(this).find('label control-label').html();
           description = $(this).find('p.help-block').html();
           error = $(this).find('div.error').html();
-          console.log(id);
           input.insertAfter(id + ' input');
           $(id + ' label.control-label').append(', ' + label);
           $(id + ' p.help-block').append(', ' + description);
