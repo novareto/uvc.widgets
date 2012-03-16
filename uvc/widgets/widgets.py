@@ -13,6 +13,9 @@ from zope.schema.vocabulary import SimpleTerm
 import zope.schema.interfaces as schema_interfaces
 from zeam.form.base.markers import NO_VALUE
 from zeam.form.base.widgets import WidgetExtractor
+from zope.schema.interfaces import IContextSourceBinder
+from zope.schema.interfaces import IVocabularyTokenized, IVocabularyFactory
+
 
 
 def register():
@@ -20,14 +23,7 @@ def register():
 
 
 class OptionalChoiceSchemaField(choice.ChoiceSchemaField):
-
-    def getChoices(self, context):
-        source = self.source
-        if (schema_interfaces.IContextSourceBinder.providedBy(source) or
-            schema_interfaces.IVocabularyFactory.providedBy(source)):
-            source = source(context)
-        assert schema_interfaces.IVocabularyTokenized.providedBy(source)
-        return source
+    pass
 
 
 class OptionalChoiceFieldWidget(choice.ChoiceFieldWidget):
