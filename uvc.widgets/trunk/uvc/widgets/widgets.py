@@ -3,6 +3,7 @@
 # cklinger@novareto.de 
 
 import grok
+import zope.schema.interfaces as schema_interfaces
 
 from zope.interface import Interface
 from zeam.form.ztk.widgets import choice 
@@ -10,12 +11,15 @@ from uvc.widgets.fields import IOptionalChoice
 from uvc.widgets.resources import optchoice
 from zeam.form.ztk.fields import registerSchemaField
 from zope.schema.vocabulary import SimpleTerm
-import zope.schema.interfaces as schema_interfaces
 from zeam.form.base.markers import NO_VALUE
 from zeam.form.base.widgets import WidgetExtractor
 from zope.schema.interfaces import IContextSourceBinder
 from zope.schema.interfaces import IVocabularyTokenized, IVocabularyFactory
+from zeam.form.ztk.widgets.textline import TextLineWidget
+from zeam.form.ztk.widgets.choice import ChoiceFieldWidget
 
+
+grok.templatedir('templates')
 
 
 def register():
@@ -76,8 +80,6 @@ class OptionalChoiceWidgetExtractor(WidgetExtractor):
         return (value, error)
 
 
-from zeam.form.ztk.widgets.textline import TextLineWidget
-from zeam.form.ztk.widgets.choice import ChoiceFieldWidget
 
 class HiddenDisplayWidget(TextLineWidget):
     grok.name('hiddendisplay')
