@@ -1,7 +1,7 @@
 from setuptools import setup, find_packages
 import os
 
-version = '0.9.1dev'
+version = '0.9.1'
 
 setup(name='uvc.widgets',
       version=version,
