@@ -35,7 +35,6 @@ class OptionalChoiceSchemaField(choice.ChoiceSchemaField):
             factory = self.factory
             assert factory is not None, \
                 "No vocabulary source available."
-            import pdb; pdb.set_trace()
             if (IContextSourceBinder.providedBy(factory) or
                 IVocabularyFactory.providedBy(factory)):
                 source = factory(form)
