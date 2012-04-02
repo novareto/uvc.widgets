@@ -15,6 +15,7 @@ from zeam.form.base.markers import NO_VALUE
 from zeam.form.base.widgets import WidgetExtractor
 from zope.schema.interfaces import IContextSourceBinder
 from zope.schema.interfaces import IVocabularyTokenized, IVocabularyFactory
+from zeam.form.ztk.interfaces import IFormSourceBinder
 from zeam.form.ztk.widgets.textline import TextLineWidget
 from zeam.form.ztk.widgets.choice import ChoiceFieldWidget
 
@@ -27,7 +28,23 @@ def register():
 
 
 class OptionalChoiceSchemaField(choice.ChoiceSchemaField):
-    pass
+
+    def getChoices(self, form, reset=False):
+        source = self.source
+        if source is None or reset:
+            factory = self.factory
+            assert factory is not None, \
+                "No vocabulary source available."
+            import pdb; pdb.set_trace()
+            if (IContextSourceBinder.providedBy(factory) or
+                IVocabularyFactory.providedBy(factory)):
+                source = factory(form)
+            elif IFormSourceBinder.providedBy(factory):
+                source = factory(form)
+            assert IVocabularyTokenized.providedBy(source), \
+                "No valid vocabulary available"
+            self._field.vocabulary = source
+        return source
 
 
 class OptionalChoiceFieldWidget(choice.ChoiceFieldWidget):
