@@ -51,6 +51,7 @@ class OptionalChoiceFieldWidget(choice.ChoiceFieldWidget):
 
     def update(self):
         super(OptionalChoiceFieldWidget, self).update()
+        import pdb; pdb.set_trace() 
         optchoice.need()
 
     @property
