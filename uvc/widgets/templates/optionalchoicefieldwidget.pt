@@ -5,8 +5,8 @@
                         class string:${widget/htmlClass} alternative-choice">
   <option value="#"
           tal:repeat="choice widget/choices"
-          tal:attributes="value choice/token;
-                          selected python: choice.token == value and 'selected' or None"
+          tal:attributes="value choice/value;
+                          selected python: choice.value == value and 'selected' or None"
           tal:content="python: choice.title or choice.value">
     Option
   </option>
