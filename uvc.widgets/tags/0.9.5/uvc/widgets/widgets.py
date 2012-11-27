@@ -66,7 +66,7 @@ class OptionalChoiceFieldWidget(choice.ChoiceFieldWidget):
         if isinstance(value, list):
             value = value[1]
         try:
-            term = self.choices().getTerm(value)
+            term = self.choices().getTermByToken(value)
             return '' 
         except:
             return value
@@ -90,7 +90,7 @@ class OptionalChoiceWidgetExtractor(WidgetExtractor):
         if value is not NO_VALUE:
             choices = self.component.getChoices(self.form.context)
             try:
-                value = choices.getTermByToken(value).value
+                value = choices.getTerm(value).value
             except LookupError:
                 return (None, u'Invalid value')
         return (value, error)
