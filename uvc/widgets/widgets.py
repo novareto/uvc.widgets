@@ -18,20 +18,36 @@ from zope.schema.interfaces import IVocabularyTokenized, IVocabularyFactory
 from zeam.form.ztk.interfaces import IFormSourceBinder
 from zeam.form.ztk.widgets.textline import TextLineWidget
 from zeam.form.ztk.widgets.choice import ChoiceFieldWidget
-from zope.event import notify
 
 
 grok.templatedir('templates')
 
 
+def register():
+    registerSchemaField(OptionalChoiceSchemaField, IOptionalChoice)
 
 
-class OptionalChoiceField(choice.ChoiceField):
-    pass
+class OptionalChoiceSchemaField(choice.ChoiceSchemaField):
 
-from zeam.form.base import interfaces
+    def getChoices(self, form, reset=False):
+        source = self.source
+        if source is None or reset:
+            factory = self.factory
+            assert factory is not None, \
+                "No vocabulary source available."
+            if (IContextSourceBinder.providedBy(factory) or
+                IVocabularyFactory.providedBy(factory)):
+                source = factory(form)
+            elif IFormSourceBinder.providedBy(factory):
+                source = factory(form)
+            assert IVocabularyTokenized.providedBy(source), \
+                "No valid vocabulary available"
+            self._field.vocabulary = source
+        return source
+
+
 class OptionalChoiceFieldWidget(choice.ChoiceFieldWidget):
-    grok.adapts(OptionalChoiceField, Interface, Interface)
+    grok.adapts(OptionalChoiceSchemaField, Interface, Interface)
 
     def update(self):
         super(OptionalChoiceFieldWidget, self).update()
@@ -50,7 +66,7 @@ class OptionalChoiceFieldWidget(choice.ChoiceFieldWidget):
         if isinstance(value, list):
             value = value[1]
         try:
-            term = self.choices().getTerm(value)
+            term = self.choices().getTermByToken(value)
             return '' 
         except:
             return value
@@ -64,7 +80,7 @@ class OptionalChoiceFieldWidget(choice.ChoiceFieldWidget):
 
 
 class OptionalChoiceWidgetExtractor(WidgetExtractor):
-    grok.adapts(OptionalChoiceField, Interface, Interface)
+    grok.adapts(OptionalChoiceSchemaField, Interface, Interface)
 
     def extract(self):
         value, error = super(OptionalChoiceWidgetExtractor, self).extract()
@@ -74,32 +90,11 @@ class OptionalChoiceWidgetExtractor(WidgetExtractor):
         if value is not NO_VALUE:
             choices = self.component.getChoices(self.form.context)
             try:
-                value = choices.getTermByToken(value).value
+                value = choices.getTerm(value).value
             except LookupError:
                 return (None, u'Invalid value')
         return (value, error)
 
-
-from zeam.form.ztk.fields import FieldCreatedEvent
-from zope.schema import interfaces as schema_interfaces
-
-def OptionalChoiceSchemaFactory(schema):
-    field = OptionalChoiceField(
-        schema.title or None,
-        identifier=schema.__name__,
-        description=schema.description,
-        required=schema.required,
-        readonly=schema.readonly,
-        source=schema.vocabulary,
-        vocabularyName=schema.vocabularyName,
-        interface=schema.interface,
-        defaultValue=schema.default or NO_VALUE)
-    notify(FieldCreatedEvent(field, schema.interface))
-    return field
-
-
-def register():
-    registerSchemaField(OptionalChoiceSchemaFactory, IOptionalChoice)
 
 
 class HiddenDisplayWidget(TextLineWidget):
