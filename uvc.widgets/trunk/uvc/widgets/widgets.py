@@ -1,35 +1,32 @@
 # -*- coding: utf-8 -*-
 # Copyright (c) 2007-2010 NovaReto GmbH
-# cklinger@novareto.de 
+# cklinger@novareto.de
 
 import grok
-import zope.schema.interfaces as schema_interfaces
 
 from zope.interface import Interface
-from zeam.form.ztk.widgets import choice 
+from zeam.form.ztk.widgets import choice
 from uvc.widgets.fields import IOptionalChoice
 from uvc.widgets.resources import optchoice
 from zeam.form.ztk.fields import registerSchemaField
-from zope.schema.vocabulary import SimpleTerm
 from zeam.form.base.markers import NO_VALUE
 from zeam.form.base.widgets import WidgetExtractor
-from zope.schema.interfaces import IContextSourceBinder
-from zope.schema.interfaces import IVocabularyTokenized, IVocabularyFactory
-from zeam.form.ztk.interfaces import IFormSourceBinder
 from zeam.form.ztk.widgets.textline import TextLineWidget
 from zeam.form.ztk.widgets.choice import ChoiceFieldWidget
+from zeam.form.ztk.fields import FieldCreatedEvent
+
 from zope.event import notify
 
 
 grok.templatedir('templates')
 
 
-
-
 class OptionalChoiceField(choice.ChoiceField):
-    pass
 
-from zeam.form.base import interfaces
+    def validate(self, value, form):
+        return None
+
+
 class OptionalChoiceFieldWidget(choice.ChoiceFieldWidget):
     grok.adapts(OptionalChoiceField, Interface, Interface)
 
@@ -51,7 +48,7 @@ class OptionalChoiceFieldWidget(choice.ChoiceFieldWidget):
             value = value[1]
         try:
             term = self.choices().getTerm(value)
-            return '' 
+            return ''
         except:
             return value
 
@@ -63,6 +60,10 @@ class OptionalChoiceFieldWidget(choice.ChoiceFieldWidget):
             return value
 
 
+class OptionalChoiceDisplayWidget(OptionalChoiceFieldWidget):
+    grok.name('display')
+
+
 class OptionalChoiceWidgetExtractor(WidgetExtractor):
     grok.adapts(OptionalChoiceField, Interface, Interface)
 
@@ -72,16 +73,13 @@ class OptionalChoiceWidgetExtractor(WidgetExtractor):
         if input:
             return (input, error)
         if value is not NO_VALUE:
-            choices = self.component.getChoices(self.form.context)
+            choices = self.component.getChoices(self.form)
             try:
                 value = choices.getTermByToken(value).value
             except LookupError:
                 return (None, u'Invalid value')
         return (value, error)
 
-
-from zeam.form.ztk.fields import FieldCreatedEvent
-from zope.schema import interfaces as schema_interfaces
 
 def OptionalChoiceSchemaFactory(schema):
     field = OptionalChoiceField(
