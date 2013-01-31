@@ -47,7 +47,7 @@ class OptionalChoiceFieldWidget(choice.ChoiceFieldWidget):
         if isinstance(value, list):
             value = value[1]
         try:
-            term = self.choices().getTerm(value)
+            term = self.choices().getTermByToken(value)
             return ''
         except:
             return value
