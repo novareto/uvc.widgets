@@ -1,7 +1,7 @@
 from setuptools import setup, find_packages
 import os
 
-version = '0.9.6.dev0'
+version = '0.9.6'
 
 setup(name='uvc.widgets',
       version=version,
@@ -24,6 +24,7 @@ setup(name='uvc.widgets',
           'setuptools',
           'js.jquery_tools',
           'js.jquery',
+          'js.jquery_maskmoney'
           # -*- Extra requirements: -*-
       ],
       entry_points={
