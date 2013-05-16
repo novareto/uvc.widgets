@@ -4,18 +4,19 @@ $(document).ready(function() {
           input = $(this).find('input');
           label = $(this).find('label.control-label').html();
           description = $(this).find('p.help-block').html();
-          error = $(this).find('div.error').html();
+          error = $(this).find('span.help-inline').html();
           $(id + ' input').css('margin-right', '1em');
           input.insertAfter(id + ' input');
           $(id + ' label.control-label').append(', ' + label);
           $(id + ' p.help-block').append(', ' + description);
           if ($(this).attr('class') == 'control-group error'){
-             $(id).addClass('error');
+             console.log(id);
              if ($(id).is('.error')) {
-               $(id + ' error').append(error);
+               $(id + ' span.help-inline').append(error);
              } 
              else {
-               $(id).append('<div class="error"> ' + error + ' </div>')
+               $(id).addClass('error');
+               $(id + ' :input:last').after('<span class="help-inline"> ' + error + ' </span>')
              }
           }
           $(this).hide();
