@@ -10,10 +10,9 @@ $(document).ready(function() {
           $(id + ' label.control-label').append(', ' + label);
           $(id + ' p.help-block').append(', ' + description);
           if ($(this).attr('class') == 'control-group error'){
-             console.log(id);
              if ($(id).is('.error')) {
                $(id + ' span.help-inline').append(error);
-             } 
+             }
              else {
                $(id).addClass('error');
                $(id + ' :input:last').after('<span class="help-inline"> ' + error + ' </span>')
