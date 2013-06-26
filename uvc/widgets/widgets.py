@@ -14,6 +14,7 @@ from zeam.form.base.widgets import WidgetExtractor
 from zeam.form.ztk.widgets.textline import TextLineWidget
 from zeam.form.ztk.widgets.choice import ChoiceFieldWidget
 from zeam.form.ztk.fields import FieldCreatedEvent
+from zeam.form.ztk.widgets.bool import CheckBoxDisplayWidget
 
 from zope.event import notify
 
@@ -47,7 +48,7 @@ class OptionalChoiceFieldWidget(choice.ChoiceFieldWidget):
         if isinstance(value, list):
             value = value[1]
         try:
-            term = self.choices().getTermByToken(value)
+            self.choices().getTermByToken(value)
             return ''
         except:
             return value
@@ -109,11 +110,19 @@ class ChoiceHiddenDisplayWidget(ChoiceFieldWidget):
 
     def getTermValue(self, value):
         return self.form.getContentData().get(self.component.identifier)
-        #return getattr(self.form.context, self.component.identifier)
-        #return getattr(self.form.context, self.component._field.getName())
 
     def valueToUnicode(self, value):
         term = self.lookupTerm(value)
         if term is not None:
             return term.title
         return u''
+
+
+class BoolHiddenDisplayWidget(CheckBoxDisplayWidget):
+    grok.name('hiddendisplay')
+
+    def checkValue(self, value):
+        print value
+        if value in ('No', ):
+            return False
+        return True
