@@ -108,7 +108,9 @@ class ChoiceHiddenDisplayWidget(ChoiceFieldWidget):
     grok.name('hiddendisplay')
 
     def getTermValue(self, value):
-        return getattr(self.form.context, self.component._field.getName())
+        return self.form.getContentData().get(self.component.identifier)
+        #return getattr(self.form.context, self.component.identifier)
+        #return getattr(self.form.context, self.component._field.getName())
 
     def valueToUnicode(self, value):
         term = self.lookupTerm(value)
