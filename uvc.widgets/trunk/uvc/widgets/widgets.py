@@ -3,11 +3,12 @@
 # cklinger@novareto.de
 
 import grok
+import datetime
 
 from zope.interface import Interface
 from zeam.form.ztk.widgets import choice
 from uvc.widgets.fields import IOptionalChoice
-from uvc.widgets.resources import optchoice
+from uvc.widgets.resources import optchoice, datepicker
 from zeam.form.ztk.fields import registerSchemaField
 from zeam.form.base.markers import NO_VALUE
 from zeam.form.base.widgets import WidgetExtractor
@@ -15,6 +16,7 @@ from zeam.form.ztk.widgets.textline import TextLineWidget
 from zeam.form.ztk.widgets.choice import ChoiceFieldWidget
 from zeam.form.ztk.fields import FieldCreatedEvent
 from zeam.form.ztk.widgets.bool import CheckBoxDisplayWidget
+from zeam.form.ztk.widgets.date import DateFieldWidget
 
 from zope.event import notify
 
@@ -126,3 +128,14 @@ class BoolHiddenDisplayWidget(CheckBoxDisplayWidget):
         if value in ('No', ):
             return False
         return True
+
+
+class DPDateFieldWidget(DateFieldWidget):
+    grok.name('dp-date')
+
+    format = "dd.mm.yyyy"
+    startdate = datetime.datetime.now().strftime('%d.%m.%Y')
+
+    def update(self):
+        super(DPDateFieldWidget, self).update()
+        datepicker.need()

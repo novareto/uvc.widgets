@@ -6,7 +6,7 @@ version = '0.9.8.dev0'
 setup(name='uvc.widgets',
       version=version,
       description="A collection of widgets for formlib / z3cformm based on jquery",
-      long_description=open("README.txt").read(), 
+      long_description=open("README.txt").read(),
       # Get more strings from http://pypi.python.org/pypi?%3Aaction=list_classifiers
       classifiers=[
         "Programming Language :: Python",
@@ -24,7 +24,8 @@ setup(name='uvc.widgets',
           'setuptools',
           'js.jquery_tools',
           'js.jquery',
-          'js.jquery_maskmoney'
+          'js.jquery_maskmoney',
+          'js.bootstrapdatepicker',
           # -*- Extra requirements: -*-
       ],
       entry_points={
