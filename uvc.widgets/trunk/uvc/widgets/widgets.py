@@ -133,9 +133,8 @@ class BoolHiddenDisplayWidget(CheckBoxDisplayWidget):
 class DPDateFieldWidget(DateFieldWidget):
     grok.name('dp-date')
 
-    format = "dd.mm.yyyy"
-    startdate = datetime.datetime.now().strftime('%d.%m.%Y')
-
     def update(self):
+        self._htmlAttributes['data-date-format'] = "dd.mm.yyyy"
+        self._htmlAttributes['data-date'] = datetime.datetime.now().strftime('%d.%m.%Y')
         super(DPDateFieldWidget, self).update()
         datepicker.need()
