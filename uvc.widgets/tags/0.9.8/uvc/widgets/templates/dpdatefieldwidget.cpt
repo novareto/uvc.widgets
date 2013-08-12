@@ -1,0 +1,9 @@
+<div class="input-append date datepicker" tal:attributes="widget.htmlAttributes()">
+<input type="text" value="#" id="#" name="#" class="#"
+       tal:attributes="name widget.identifier;
+                       value widget.inputValue();
+                       id widget.htmlId();
+                       class widget.htmlClass();
+                       widget.htmlAttributes()" />
+<span class="add-on"><i class="icon-th"></i></span>
+</div>
