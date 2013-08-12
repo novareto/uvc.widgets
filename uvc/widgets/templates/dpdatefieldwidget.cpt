@@ -1,4 +1,4 @@
-<div class="input-append date datepicker" tal:attributes="data-date widget.startdate; data-date-format widget.format">
+<div class="input-append date datepicker" tal:attributes="widget.htmlAttributes()">
 <input type="text" value="#" id="#" name="#" class="#"
        tal:attributes="name widget.identifier;
                        value widget.inputValue();
