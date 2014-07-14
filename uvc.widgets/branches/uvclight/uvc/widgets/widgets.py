@@ -2,26 +2,22 @@
 # Copyright (c) 2007-2010 NovaReto GmbH
 # cklinger@novareto.de
 
-import grok
+import uvclight
 import datetime
 
-from zope.interface import Interface
-from zeam.form.ztk.widgets import choice
+from dolmen.forms.base.markers import NO_VALUE
+from dolmen.forms.base.widgets import WidgetExtractor
+from dolmen.forms.ztk.fields import registerSchemaField
+from dolmen.forms.ztk.widgets import choice
+from dolmen.forms.ztk.widgets.bool import CheckBoxDisplayWidget
+from dolmen.forms.ztk.widgets.choice import ChoiceFieldWidget
+from dolmen.forms.ztk.widgets.date import DateFieldWidget
+from dolmen.forms.ztk.widgets.textline import TextLineWidget
 from uvc.widgets.fields import IOptionalChoice
 from uvc.widgets.resources import optchoice, datepicker
-from zeam.form.ztk.fields import registerSchemaField
-from zeam.form.base.markers import NO_VALUE
-from zeam.form.base.widgets import WidgetExtractor
-from zeam.form.ztk.widgets.textline import TextLineWidget
-from zeam.form.ztk.widgets.choice import ChoiceFieldWidget
-from zeam.form.ztk.fields import FieldCreatedEvent
-from zeam.form.ztk.widgets.bool import CheckBoxDisplayWidget
-from zeam.form.ztk.widgets.date import DateFieldWidget
+from zope.interface import Interface
 
 from zope.event import notify
-
-
-grok.templatedir('templates')
 
 
 class OptionalChoiceField(choice.ChoiceField):
@@ -31,7 +27,7 @@ class OptionalChoiceField(choice.ChoiceField):
 
 
 class OptionalChoiceFieldWidget(choice.ChoiceFieldWidget):
-    grok.adapts(OptionalChoiceField, Interface, Interface)
+    uvclight.adapts(OptionalChoiceField, Interface, Interface)
 
     def update(self):
         super(OptionalChoiceFieldWidget, self).update()
@@ -64,11 +60,11 @@ class OptionalChoiceFieldWidget(choice.ChoiceFieldWidget):
 
 
 class OptionalChoiceDisplayWidget(OptionalChoiceFieldWidget):
-    grok.name('display')
+    uvclight.name('display')
 
 
 class OptionalChoiceWidgetExtractor(WidgetExtractor):
-    grok.adapts(OptionalChoiceField, Interface, Interface)
+    uvclight.adapts(OptionalChoiceField, Interface, Interface)
 
     def extract(self):
         value, error = super(OptionalChoiceWidgetExtractor, self).extract()
@@ -95,7 +91,6 @@ def OptionalChoiceSchemaFactory(schema):
         vocabularyName=schema.vocabularyName,
         interface=schema.interface,
         defaultValue=schema.default or NO_VALUE)
-    notify(FieldCreatedEvent(field, schema.interface))
     return field
 
 
@@ -104,11 +99,11 @@ def register():
 
 
 class HiddenDisplayWidget(TextLineWidget):
-    grok.name('hiddendisplay')
+    uvclight.name('hiddendisplay')
 
 
 class ChoiceHiddenDisplayWidget(ChoiceFieldWidget):
-    grok.name('hiddendisplay')
+    uvclight.name('hiddendisplay')
 
     def getTermValue(self, value):
         return self.form.getContentData().get(self.component.identifier)
@@ -121,7 +116,7 @@ class ChoiceHiddenDisplayWidget(ChoiceFieldWidget):
 
 
 class BoolHiddenDisplayWidget(CheckBoxDisplayWidget):
-    grok.name('hiddendisplay')
+    uvclight.name('hiddendisplay')
 
     def checkValue(self, value):
         print value
@@ -131,7 +126,7 @@ class BoolHiddenDisplayWidget(CheckBoxDisplayWidget):
 
 
 class DPDateFieldWidget(DateFieldWidget):
-    grok.name('dp-date')
+    uvclight.name('dp-date')
 
     def update(self):
         self._htmlAttributes['data-date-format'] = "dd.mm.yyyy"
