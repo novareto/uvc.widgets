@@ -29,6 +29,10 @@ setup(name='uvc.widgets',
           # -*- Extra requirements: -*-
       ],
       entry_points={
-      'zeam.form.components': ['optionalchoice = uvc.widgets.widgets:register'],
-      'fanstatic.libraries': ['uvcwidgets = uvc.widgets.resources:widget_library']}
+      'dolmen.collection.components': [
+          'optionalchoice = uvc.widgets.widgets:register',
+          ],
+      'fanstatic.libraries': [
+          'uvcwidgets = uvc.widgets.resources:widget_library',
+          ]}
       )
