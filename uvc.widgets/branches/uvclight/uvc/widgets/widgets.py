@@ -2,9 +2,9 @@
 # Copyright (c) 2007-2010 NovaReto GmbH
 # cklinger@novareto.de
 
-import uvclight
-import datetime
 
+import datetime
+from grokcore.component import name, adapts
 from dolmen.forms.base.markers import NO_VALUE
 from dolmen.forms.base.widgets import WidgetExtractor
 from dolmen.forms.ztk.fields import registerSchemaField
@@ -16,7 +16,6 @@ from dolmen.forms.ztk.widgets.textline import TextLineWidget
 from uvc.widgets.fields import IOptionalChoice
 from uvc.widgets.resources import optchoice, datepicker
 from zope.interface import Interface
-
 from zope.event import notify
 
 
@@ -27,7 +26,7 @@ class OptionalChoiceField(choice.ChoiceField):
 
 
 class OptionalChoiceFieldWidget(choice.ChoiceFieldWidget):
-    uvclight.adapts(OptionalChoiceField, Interface, Interface)
+    adapts(OptionalChoiceField, Interface, Interface)
 
     def update(self):
         super(OptionalChoiceFieldWidget, self).update()
@@ -60,11 +59,11 @@ class OptionalChoiceFieldWidget(choice.ChoiceFieldWidget):
 
 
 class OptionalChoiceDisplayWidget(OptionalChoiceFieldWidget):
-    uvclight.name('display')
+    name('display')
 
 
 class OptionalChoiceWidgetExtractor(WidgetExtractor):
-    uvclight.adapts(OptionalChoiceField, Interface, Interface)
+    adapts(OptionalChoiceField, Interface, Interface)
 
     def extract(self):
         value, error = super(OptionalChoiceWidgetExtractor, self).extract()
@@ -99,11 +98,11 @@ def register():
 
 
 class HiddenDisplayWidget(TextLineWidget):
-    uvclight.name('hiddendisplay')
+    name('hiddendisplay')
 
 
 class ChoiceHiddenDisplayWidget(ChoiceFieldWidget):
-    uvclight.name('hiddendisplay')
+    name('hiddendisplay')
 
     def getTermValue(self, value):
         return self.form.getContentData().get(self.component.identifier)
@@ -116,7 +115,7 @@ class ChoiceHiddenDisplayWidget(ChoiceFieldWidget):
 
 
 class BoolHiddenDisplayWidget(CheckBoxDisplayWidget):
-    uvclight.name('hiddendisplay')
+    name('hiddendisplay')
 
     def checkValue(self, value):
         print value
@@ -126,7 +125,7 @@ class BoolHiddenDisplayWidget(CheckBoxDisplayWidget):
 
 
 class DPDateFieldWidget(DateFieldWidget):
-    uvclight.name('dp-date')
+    name('dp-date')
 
     def update(self):
         self._htmlAttributes['data-date-format'] = "dd.mm.yyyy"
