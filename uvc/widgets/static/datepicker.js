@@ -1,3 +1,4 @@
+/*
 $.tools.dateinput.localize("de", {
    months: 'Januar,Februar,März,April,Mai,Juni,Juli,August,September,Oktober,November,Dezember',
    shortMonths:  'Jan,Feb,Mar,Apr,May,Jun,Jul,Aug,Sep,Okt,Nov,Dez',
@@ -19,4 +20,4 @@ $(function() {
      $(this).unbind('keydown');
   })
 });
-
+*/
