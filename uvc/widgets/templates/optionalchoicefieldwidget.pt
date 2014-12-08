@@ -2,7 +2,7 @@
         tal:define="value widget/selectValue"
         tal:attributes="name widget/identifier;
                         id widget/htmlId;
-                        class string:${widget/htmlClass} alternative-choice">
+                        class string:${widget/htmlClass} form-control alternative-choice">
   <option value="#"
           tal:repeat="choice widget/choices"
           tal:attributes="value choice/token;

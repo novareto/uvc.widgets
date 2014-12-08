@@ -121,7 +121,7 @@
         if(next)
             this_tmp = this_tmp.next().attr('id',id_tmp);
         
-        dlg_button.insertAfter(this_tmp.wrap(jQuery('<div></div>').addClass('input-append')));
+        dlg_button.insertAfter(this_tmp.wrap(jQuery('<div></div>').addClass('input-append form-inline')));
         dlg_button.click(function(event){ leave_Dialog(dlg_tmp, '#' + this_id); });
         jQuery(jQuery(this)).insertBefore(jQuery('#' + id_tmp));    
         });
