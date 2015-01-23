@@ -21,3 +21,4 @@ masked_input = Resource(widget_library, 'jquery.maskedinput.js', depends=[jquery
 datepicker = Resource(widget_library, 'bsdp.js', depends=[bootstrapdatepicker])
 plz_select = Resource(widget_library, 'plz_select.js', depends=[jquery])
 lov = Resource(widget_library, 'lov.js', depends=[jquery])
+limit_js = Resource(widget_library, 'limit.js', depends=[jquery])
