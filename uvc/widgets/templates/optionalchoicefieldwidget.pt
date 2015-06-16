@@ -1,3 +1,4 @@
+<div class="form-inline">
 <select id="#" name="#" class="#"
         tal:define="value widget/selectValue"
         tal:attributes="name widget/identifier;
@@ -13,8 +14,9 @@
 </select>
 <span>
   Sonstiges: 
-  <input type="text" id="#" name="#" class="alternative-input"
+  <input type="text" id="#" name="#" class="form-control alternative-input"
          tal:attributes="name widget/identifier;
                          id widget/htmlId;
                          value widget/textValue">
 </span>                                                    
+</div>

@@ -3,4 +3,4 @@
                        value widget/inputValue;
                        id widget/htmlId;
                        "/>
-<span tal:content="widget/inputValue"/>
+<span tal:content="structure widget/inputValue"/>
