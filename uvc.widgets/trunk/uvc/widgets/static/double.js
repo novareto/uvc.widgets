@@ -4,7 +4,7 @@ $(document).ready(function() {
           input = $(this).find('input');
           label = $(this).find('label.control-label').html();
           description = $(this).find('p.help-block').html();
-          error = $(this).find('span#error-message').html();
+          error = '&nbsp;' + $(this).find('span#error-message').html();
           $(id + ' input').css('margin-right', '1em');
           
           $(id + ' input').wrap(jQuery('<div class="form-inline"></div>'));
