@@ -1,13 +1,13 @@
 # -*- coding: utf-8 -*-
 # Copyright (c) 2007-2011 NovaReto GmbH
-# cklinger@novareto.de 
+# cklinger@novareto.de
 
 import grok
-import uvcsite
+from zope.interface import Interface
 
 
 class AjaxPLZOrt(grok.JSON):
-    grok.context(uvcsite.IUVCSite)
+    grok.context(Interface)
     grok.baseclass()
 
     def show_orte(self, plz=None):
