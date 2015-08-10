@@ -1,16 +1,16 @@
 # -*- coding: utf-8 -*-
 # Copyright (c) 2007-2011 NovaReto GmbH
-# cklinger@novareto.de 
+# cklinger@novareto.de
 
 import grok
-import uvcsite
-
+from uvc.layout.interfaces import IHeaders
 from zope.interface import Interface
 
 
 class Base_URL(grok.Viewlet):
     grok.context(Interface)
-    grok.viewletmanager(uvcsite.IHeaders)
+    grok.viewletmanager(IHeaders)
 
     def render(self):
+        print "I AM CALLED"
         return "<script> var base_url = '%s'; </script>" % self.view.application_url()
