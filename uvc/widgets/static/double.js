@@ -4,17 +4,17 @@ $(document).ready(function() {
           input = $(this).find('input');
           label = $(this).find('label.control-label').html();
           description = $(this).find('p.help-block').html();
-          error = '&nbsp;' + $(this).find('span#error-message').html();
+          error = '&nbsp;' + $(this).find('p#error').html();
           $(id + ' input').css('margin-right', '1em');
           
           $(id + ' input').wrap(jQuery('<div class="form-inline"></div>'));
           input.insertAfter(id + ' input');
           
           $(id + ' label.control-label').append(', ' + label);
-          $(id + ' p.help-block').append(', ' + description);
+          //$(id + ' p.help-block').append(', ' + description);
           if ($(this).hasClass('has-error')){
              if ($(id).hasClass('has-error')) {
-               $(id + ' span#error-message').append(error);
+               $(id + ' p#error').append(error);
              }
              else {
                $(id).addClass('form-group alert-danger has-error');
