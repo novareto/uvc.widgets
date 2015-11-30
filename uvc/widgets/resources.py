@@ -5,15 +5,19 @@
 
 from js.jquery import jquery
 from js.jquery_tools import jquery_tools
-from fanstatic import Resource, Library
-from js.bootstrapdatepicker import bootstrapdatepicker
+from fanstatic import Resource, Library, Group
 
 
 widget_library = Library('uvc.widgets', 'static')
 
 
-DatePickerCSS = Resource(widget_library, 'datepicker.css')
-DatePicker = Resource(widget_library, 'datepicker.js', depends=[jquery_tools])
+dpcss = Resource(widget_library, 'bootstrap-datepicker.standalone.min.css')
+dpdecss = Resource(widget_library, 'bootstrap-datepicker.de.min.js')
+dpjs = Resource(widget_library, 'bootstrap-datepicker.min.js')
+
+bootstrapdatepicker = Group((dpcss, dpdecss, dpjs))
+
+
 optchoice = Resource(widget_library, 'choice.js', depends=[jquery])
 double = Resource(widget_library, 'double.js', depends=[jquery])
 masked_input = Resource(widget_library, 'jquery.maskedinput.js', depends=[jquery])  # Achtung JQuery 1.9

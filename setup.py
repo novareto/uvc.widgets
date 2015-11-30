@@ -22,10 +22,8 @@ setup(name='uvc.widgets',
       zip_safe=False,
       install_requires=[
           'setuptools',
-          'js.jquery_tools',
           'js.jquery',
           'js.jquery_maskmoney',
-          'js.bootstrapdatepicker',
           # -*- Extra requirements: -*-
       ],
       entry_points={
