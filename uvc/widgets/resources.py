@@ -4,7 +4,6 @@
 
 
 from js.jquery import jquery
-from js.jquery_tools import jquery_tools
 from fanstatic import Resource, Library, Group
 
 
