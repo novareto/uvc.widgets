@@ -12,5 +12,4 @@ class Base_URL(grok.Viewlet):
     grok.viewletmanager(IHeaders)
 
     def render(self):
-        print "I AM CALLED"
         return "<script> var base_url = '%s'; </script>" % self.view.application_url()

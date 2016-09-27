@@ -17,6 +17,7 @@ from zeam.form.ztk.widgets.choice import ChoiceFieldWidget
 from zeam.form.ztk.fields import FieldCreatedEvent
 from zeam.form.ztk.widgets.bool import CheckBoxDisplayWidget
 from zeam.form.ztk.widgets.date import DateFieldWidget
+from zeam.form.ztk.widgets.number import NumberWidget
 
 from zope.event import notify
 
@@ -128,6 +129,10 @@ class BoolHiddenDisplayWidget(CheckBoxDisplayWidget):
         if value in ('No', ):
             return False
         return True
+
+
+class NumberWidget(NumberWidget):
+        grok.name('hiddendisplay')
 
 
 class DPDateFieldWidget(DateFieldWidget):
