@@ -125,7 +125,6 @@ class BoolHiddenDisplayWidget(CheckBoxDisplayWidget):
     grok.name('hiddendisplay')
 
     def checkValue(self, value):
-        print value
         if value in ('No', ):
             return False
         return True

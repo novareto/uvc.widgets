@@ -3,7 +3,7 @@
 # cklinger@novareto.de
 
 import grok
-from uvc.layout.interfaces import IHeaders
+from uvcsite.browser.layout.slots.interfaces import IHeaders
 from zope.interface import Interface
 
 
